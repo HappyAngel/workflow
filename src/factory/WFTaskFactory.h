@@ -26,8 +26,9 @@
 #include "HttpMessage.h"
 #include "MySQLMessage.h"
 #include "DNSRoutine.h"
-#include "WFTask.h"
 #include "Workflow.h"
+#include "WFTask.h"
+#include "WFGraphTask.h"
 #include "EndpointParams.h"
 #include "WFAlgoTaskFactory.h"
 
@@ -80,6 +81,9 @@ using fsync_callback_t = std::function<void (WFFileSyncTask *)>;
 // Timer and counter
 using timer_callback_t = std::function<void (WFTimerTask *)>;
 using counter_callback_t = std::function<void (WFCounterTask *)>;
+
+// Graph (DAG) task.
+using graph_callback_t = std::function<void (WFGraphTask *)>;
 
 // DNS task. For internal usage only.
 using WFDNSTask = WFThreadTask<DNSInput, DNSOutput>;
@@ -198,6 +202,12 @@ public:
 									FUNC&& func, ARGS&&... args);
 
 public:
+	static WFGraphTask *create_graph_task(graph_callback_t callback)
+	{
+		return new WFGraphTask(std::move(callback));
+	}
+
+public:
 	static WFDNSTask *create_dns_task(const std::string& host,
 									  unsigned short port,
 									  dns_callback_t callback);
@@ -248,11 +258,6 @@ public:
 								 std::function<void (INPUT *, OUTPUT *)> routine,
 								 std::function<void (T *)> callback);
 
-	static T *create_thread_task(const std::string& queue_name,
-								 INPUT input,
-								 std::function<void (INPUT *, OUTPUT *)> routine,
-								 std::function<void (T *)> callback);
-
 	static MT *create_multi_thread_task(const std::string& queue_name,
 										std::function<void (INPUT *, OUTPUT *)> routine,
 										size_t nthreads,
@@ -260,11 +265,6 @@ public:
 
 public:
 	static T *create_thread_task(ExecQueue *queue, Executor *executor,
-								 std::function<void (INPUT *, OUTPUT *)> routine,
-								 std::function<void (T *)> callback);
-
-	static T *create_thread_task(ExecQueue *queue, Executor *executor,
-								 INPUT input,
 								 std::function<void (INPUT *, OUTPUT *)> routine,
 								 std::function<void (T *)> callback);
 };

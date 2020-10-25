@@ -2,7 +2,9 @@
 
 ## Sogou C++ Workflow
 
-[![C++](https://img.shields.io/badge/License-Apache-yellow.svg)](https://git.sogou-inc.com/wujiaxu/Filter/blob/master/LICENSE "license MIT") [![](https://img.shields.io/badge/language-c++-red.svg)](https://en.cppreference.com/ "platform") [![](https://img.shields.io/badge/platform-linux%20%7C%20macos-lightgrey.svg)](#%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%BE%E8%AE%A1%E7%89%B9%E7%82%B9)
+[![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://github.com/sogou/workflow/blob/master/LICENSE)
+[![Language](https://img.shields.io/badge/language-c++-red.svg)](https://en.cppreference.com/) 
+[![Platform](https://img.shields.io/badge/platform-linux%20%7C%20macos-lightgrey.svg)](#%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%BE%E8%AE%A1%E7%89%B9%E7%82%B9)
 
 As **Sogou\`s C++ server engine**, Sogou C++ Workflow supports almost all **back-end C++ online services** of Sogou, including all search services, cloud input method，online advertisements, etc., handling more than **10 billion** requests every day. This is an **enterprise-level programming engine** in light and elegant design which can satisfy most C++ back-end development requirements.
 
@@ -85,7 +87,7 @@ int main()
 
 #### System design features
 
-We believe that a typical back-end program consists of the following three parts and should be developed completely independently.
+We believe that a typical back-end program=protocol+algorithm+workflow and should be developed completely independently.
 
 * Protocol
   * In most cases, users use built-in common network protocols, such as HTTP, Redis or various rpc.
